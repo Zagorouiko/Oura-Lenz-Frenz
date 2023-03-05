@@ -1,0 +1,28 @@
+Rethink the authentication flow
+1. Create a connect wallet button first
+2. After the wallet is connected, grab the address, then do a query to see if the Lens profile exists
+3. If Lens profile exists -> Show profile information
+4. If lens profile doesn't exist -> Show create form
+
+Can't run a query (react-hook) inside a nested function, it needs to be done at the top of a component. So the wallet login and lens login need to be separated.
+Login to the wallet first, grab the address, then render the lens login button and push in the address (while doing the lens profile query at the top outside any functions)
+Then do steps 3 or 4 above
+
+
+
+
+****OURA RING WITH LENS****
+Create a separate contract that will create an nft with the metadata set to the Oura ring data (Maybe use chainlink keepers to automate it?)
+Once the nft is created and the IPFS uri is outputted. I can pass in the URI to the lens Profile->attributes array (using useUpdateProfileDetails react hook) 
+which will then get indexed by their GraphQL
+Then I query the graphQL and interact with the data on the front-end
+
+1. Need to fix the CORS issue
+2. Once it's fixed I should get the access token back. I'll need to save it into the local storage on the browser (instead of state hook since I don't want to reload the page)
+3. Once it's saved in local storage. I can access it and insert it into the auth headers and make a request to the api.
+
+**Questions
+1. For the Oura ring smart contract authentication/data fetching(with keepers), should this functionality be in a separate contract or with the lens contracts(profile arbitrary data field)?
+2. First step is to try to get the auth/fetching to work on my own contract and maybe migrate that functionality to the lens profile creation
+3. The contract should be on the mumbai testnet
+4. Can the smart contract + keepers handle getting new access tokens via refresh token & exp?

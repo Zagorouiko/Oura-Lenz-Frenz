@@ -1,0 +1,19 @@
+# 1. Schema - which points to the entire lens schema
+schema: "https://api-sandbox-mumbai.lens.dev"
+# 2 Documents (operations) - points to the graphql files
+documents: "./graphql/*.graphql"
+# Where to generate output, what plugins to include, what config flags to include
+generates:
+  ./graphql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+      - fragment-matcher
+
+    config:
+      dedupeFragments: true
+      fetcher: 
+      # what function to run
+        func: "./auth-fetcher#fetcher"
+        isReactHook: false
